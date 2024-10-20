@@ -6,16 +6,15 @@
 class CustomPanSlider : public juce::Slider {
 public:
     CustomPanSlider() : juce::Slider() {}
-
     juce::String getTextFromValue(double value) override {
-        if (value < 0) {
+        if (static_cast<int>(value/2) == 0) {
+            return "C";
+        }
+        else if (value < 0) {
             return juce::String(static_cast<int>(-value / 2)) + "L";
         }
-        else if (value > 0) {
-            return juce::String(static_cast<int>(value / 2)) + "R";
-        }
         else {
-            return "C";
+            return juce::String(static_cast<int>(value / 2)) + "R";
         }
     }
 };
