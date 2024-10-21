@@ -25,7 +25,7 @@ UtilityAudioProcessor::UtilityAudioProcessor()
         std::make_unique<juce::AudioParameterFloat>(
             "gain",
             "Gain",
-            juce::NormalisableRange<float>(-100.0f, 30.0f),
+            juce::NormalisableRange<float>(-100.0f, 35.0f),
             0.0f),
         std::make_unique<juce::AudioParameterFloat>(
             "pan", 
