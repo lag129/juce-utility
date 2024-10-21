@@ -3,6 +3,14 @@
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
 
+class CustomGainSlider : public juce::Slider {
+public:
+    CustomGainSlider() : juce::Slider() {}
+    juce::String getTextFromValue(double value) override {
+        return juce::String(value, 2) + " dB";
+    }
+};
+
 class CustomPanSlider : public juce::Slider {
 public:
     CustomPanSlider() : juce::Slider() {}
@@ -46,7 +54,8 @@ private:
     typedef juce::AudioProcessorValueTreeState::SliderAttachment SliderAttachment;
 
     juce::AudioProcessorValueTreeState &valueTreeState;
-    juce::Slider gainSlider;
+
+    CustomGainSlider gainSlider;
     std::unique_ptr<SliderAttachment> gainSliderAttachment;
 
     CustomPanSlider panSlider;
