@@ -16,8 +16,7 @@ UtilityAudioProcessorEditor::UtilityAudioProcessorEditor(
 {
     gainSliderAttachment.reset(new SliderAttachment(valueTreeState, "gain", gainSlider));
     gainSlider.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
-    gainSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, false, width * 2 / 3, PannerArea.getHeight() / 6);
-    gainSlider.setTextValueSuffix(" dB");
+    gainSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, false, width * 2 / 3, GainArea.getHeight() / 6);
     addAndMakeVisible(gainSlider);
 
     panSliderAttachment.reset(new SliderAttachment(valueTreeState, "pan", panSlider));
@@ -40,6 +39,7 @@ void UtilityAudioProcessorEditor::paint(juce::Graphics &g)
 
     g.setColour(juce::Colour::Colour(46, 52, 64));
     g.fillRect(GainArea.toFloat());
+    g.fillRect(MuteButtonArea.toFloat());
 }
 
 void UtilityAudioProcessorEditor::resized()

@@ -43,13 +43,11 @@ private:
     int width = 200;
     int height = 300;
 
-    juce::Rectangle<int> GainArea{ width, height * 1 / 2 };
-    juce::Rectangle<int> PannerArea{ 0, height * 1 / 2, width, height / 2 };
-
-    int mapPanValue() {
-        double panValue = panSlider.getValue();
-        return (panValue + 100) / 4 - 50;
-    }
+    juce::Rectangle<int> OutputLabelArea{width / 2, 0, width / 2, height / 8};
+    juce::Rectangle<int> GainArea{width / 2, height / 8, width / 2, height * 3 / 8};
+    juce::Rectangle<int> PannerArea{width / 2, height / 2, width / 2, height * 3 / 8};
+    juce::Rectangle<int> MuteButtonArea{width / 2, height * 7 / 8, width / 4, height / 8};
+    juce::Rectangle<int> DCButtonArea{width / 4, height * 7 / 8, width / 4, height / 8};
 
     typedef juce::AudioProcessorValueTreeState::SliderAttachment SliderAttachment;
 
