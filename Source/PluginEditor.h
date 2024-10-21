@@ -50,6 +50,7 @@ private:
     juce::Rectangle<int> DCButtonArea{width / 4, height * 7 / 8, width / 4, height / 8};
 
     typedef juce::AudioProcessorValueTreeState::SliderAttachment SliderAttachment;
+    typedef juce::AudioProcessorValueTreeState::ButtonAttachment ButtonAttachment;
 
     juce::AudioProcessorValueTreeState &valueTreeState;
 
@@ -58,6 +59,9 @@ private:
 
     CustomPanSlider panSlider;
     std::unique_ptr<SliderAttachment> panSliderAttachment;
+
+    juce::TextButton muteButton;
+    std::unique_ptr<ButtonAttachment> muteButtonAttachment;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(UtilityAudioProcessorEditor)
 };

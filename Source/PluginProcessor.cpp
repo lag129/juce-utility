@@ -32,10 +32,16 @@ UtilityAudioProcessor::UtilityAudioProcessor()
             "Pan", 
             juce::NormalisableRange<float>(-100.0f, 100.0f),
             0.0f),
+        std::make_unique<juce::AudioParameterBool>(
+           "mute",
+           "Mute",
+           false),
     })
 {
     gain = parameters.getRawParameterValue("gain");
     pan = parameters.getRawParameterValue("pan");
+    })
+{
 }
 
 UtilityAudioProcessor::~UtilityAudioProcessor()
@@ -113,6 +119,7 @@ void UtilityAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBloc
 
     gainDSP.prepare(spec);
     pannerDSP.prepare(spec);
+    muteDSP.prepare(spec);
 }
 
 void UtilityAudioProcessor::releaseResources()
@@ -164,12 +171,21 @@ void UtilityAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce
 
     gainDSP.setGainDecibels(*gain);
     pannerDSP.setPan(*pan / 100);
+    
+    if (*mute == 0) {
+        muteDSP.setGainLinear(1.0f);
+    }
+    else {
+        muteDSP.setGainLinear(0.0f);
+    }
+    
 
     juce::dsp::AudioBlock<float> audioBlock(buffer);
     juce::dsp::ProcessContextReplacing<float> context(audioBlock);
 
     gainDSP.process(context);
     pannerDSP.process(context);
+    muteDSP.process(context);
 }
 
 //==============================================================================

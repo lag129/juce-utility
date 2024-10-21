@@ -24,6 +24,11 @@ UtilityAudioProcessorEditor::UtilityAudioProcessorEditor(
     panSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, false, width * 2 / 3, PannerArea.getHeight() / 6);
     addAndMakeVisible(panSlider);
 
+    muteButtonAttachment.reset(new ButtonAttachment(valueTreeState, "mute", muteButton));
+    muteButton.setButtonText("Mute");
+    muteButton.setClickingTogglesState(true);
+    addAndMakeVisible(muteButton);
+
     setSize(width, height);
 }
 
@@ -46,4 +51,5 @@ void UtilityAudioProcessorEditor::resized()
 {
     gainSlider.setBounds(GainArea.reduced(5));
     panSlider.setBounds(PannerArea.reduced(5));
+    muteButton.setBounds(MuteButtonArea.reduced(5));
 }

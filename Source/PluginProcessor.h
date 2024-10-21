@@ -43,11 +43,14 @@ public:
 
 private:
     juce::AudioProcessorValueTreeState parameters;
-    std::atomic<float> *gain = nullptr;
-    std::atomic<float> *pan = nullptr;
+    std::atomic<float> *gain = parameters.getRawParameterValue("gain");
+    std::atomic<float> *pan = parameters.getRawParameterValue("pan");
+    std::atomic<float> *mute = parameters.getRawParameterValue("mute");
+    //std::atomic<float> *dc = parameters.getRawParameterValue("dc");
 
     juce::dsp::Gain<float> gainDSP;
     juce::dsp::Panner<float> pannerDSP;
+    juce::dsp::Gain<float> muteDSP;
     juce::dsp::ProcessSpec spec;
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(UtilityAudioProcessor)
