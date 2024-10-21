@@ -14,6 +14,11 @@ UtilityAudioProcessorEditor::UtilityAudioProcessorEditor(
     UtilityAudioProcessor& p, juce::AudioProcessorValueTreeState& vts)
     : AudioProcessorEditor(&p), audioProcessor(p), valueTreeState(vts)
 {
+    //gainSliderAttachment.reset(new SliderAttachment(valueTreeState, "gain", gainSlider));
+    widthSlider.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
+    widthSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, false, width * 2 / 3, GainArea.getHeight() / 6);
+    addAndMakeVisible(widthSlider);
+
     gainSliderAttachment.reset(new SliderAttachment(valueTreeState, "gain", gainSlider));
     gainSlider.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     gainSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, false, width * 2 / 3, GainArea.getHeight() / 6);
@@ -43,12 +48,14 @@ void UtilityAudioProcessorEditor::paint(juce::Graphics &g)
     g.fillAll(getLookAndFeel().findColour(juce::ResizableWindow::backgroundColourId));
 
     g.setColour(juce::Colour::Colour(46, 52, 64));
+    g.fillRect(WidthArea.toFloat());
     g.fillRect(GainArea.toFloat());
     g.fillRect(MuteButtonArea.toFloat());
 }
 
 void UtilityAudioProcessorEditor::resized()
 {
+    widthSlider.setBounds(WidthArea.reduced(5));
     gainSlider.setBounds(GainArea.reduced(5));
     panSlider.setBounds(PannerArea.reduced(5));
     muteButton.setBounds(MuteButtonArea.reduced(5));
