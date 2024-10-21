@@ -3,25 +3,32 @@
 #include <JuceHeader.h>
 #include "PluginProcessor.h"
 
-class CustomGainSlider : public juce::Slider {
+class CustomGainSlider : public juce::Slider
+{
 public:
     CustomGainSlider() : juce::Slider() {}
-    juce::String getTextFromValue(double value) override {
+    juce::String getTextFromValue(double value) override
+    {
         return juce::String(value, 2) + " dB";
     }
 };
 
-class CustomPanSlider : public juce::Slider {
+class CustomPanSlider : public juce::Slider
+{
 public:
     CustomPanSlider() : juce::Slider() {}
-    juce::String getTextFromValue(double value) override {
-        if (static_cast<int>(value/2) == 0) {
+    juce::String getTextFromValue(double value) override
+    {
+        if (static_cast<int>(value / 2) == 0)
+        {
             return "C";
         }
-        else if (value < 0) {
+        else if (value < 0)
+        {
             return juce::String(static_cast<int>(-value / 2)) + "L";
         }
-        else {
+        else
+        {
             return juce::String(static_cast<int>(value / 2)) + "R";
         }
     }
