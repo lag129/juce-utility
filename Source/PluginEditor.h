@@ -19,19 +19,20 @@ public:
     CustomPanSlider() : juce::Slider() {}
     juce::String getTextFromValue(double value) override
     {
-        if (static_cast<int>(value / 2) == 0)
-        {
+        panValue = value / 2;
+        if (panValue > -1.0 && panValue < 1.0) {
             return "C";
         }
-        else if (value < 0)
-        {
-            return juce::String(static_cast<int>(-value / 2)) + "L";
+        else if (panValue <= -1.0) {
+            return juce::String(static_cast<int>(-panValue)) + "L";
         }
-        else
-        {
-            return juce::String(static_cast<int>(value / 2)) + "R";
+        else if (panValue >= 1.0){
+            return juce::String(static_cast<int>(panValue)) + "R";
         }
+        return "";
     }
+private:
+    double panValue;
 };
 
 class UtilityAudioProcessorEditor : public juce::AudioProcessorEditor
