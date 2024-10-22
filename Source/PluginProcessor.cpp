@@ -38,10 +38,6 @@ UtilityAudioProcessor::UtilityAudioProcessor()
            false),
     })
 {
-    gain = parameters.getRawParameterValue("gain");
-    pan = parameters.getRawParameterValue("pan");
-    })
-{
 }
 
 UtilityAudioProcessor::~UtilityAudioProcessor()
