@@ -52,6 +52,8 @@ private:
     int height = 260;
 
     juce::Rectangle<int> InputLabelArea{0, 0, width / 2, height / 8};
+    juce::Rectangle<int> LeftButtonArea{ 0, height / 8, width / 4, height / 8 };
+    juce::Rectangle<int> RightButtonArea{ width / 4, height / 8, width / 4, height / 8 };
     juce::Rectangle<int> WidthArea{0, height * 5 / 16, width / 2, height * 3 / 8};
     juce::Rectangle<int> OutputLabelArea{width / 2, 0, width / 2, height / 8};
     juce::Rectangle<int> GainArea{width / 2, height / 8, width / 2, height * 3 / 8};
@@ -64,6 +66,12 @@ private:
 
     juce::AudioProcessorValueTreeState &valueTreeState;
 
+    juce::TextButton leftButton;
+    std::unique_ptr<ButtonAttachment> leftButtonAttachment;
+
+    juce::TextButton rightButton;
+    std::unique_ptr<ButtonAttachment> rightButtonAttachment;
+
     juce::Slider widthSlider;
 
     CustomGainSlider gainSlider;
@@ -74,6 +82,9 @@ private:
 
     juce::TextButton muteButton;
     std::unique_ptr<ButtonAttachment> muteButtonAttachment;
+
+    juce::TextButton dcButton;
+    std::unique_ptr<ButtonAttachment> dcButtonAttachment;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(UtilityAudioProcessorEditor)
 };

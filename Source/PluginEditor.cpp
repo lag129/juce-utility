@@ -1,19 +1,20 @@
-/*
-  ==============================================================================
-
-    This file contains the basic framework code for a JUCE plugin editor.
-
-  ==============================================================================
-*/
-
 #include "PluginProcessor.h"
 #include "PluginEditor.h"
 
-//==============================================================================
 UtilityAudioProcessorEditor::UtilityAudioProcessorEditor(
     UtilityAudioProcessor& p, juce::AudioProcessorValueTreeState& vts)
     : AudioProcessorEditor(&p), audioProcessor(p), valueTreeState(vts)
 {
+    leftButtonAttachment.reset(new ButtonAttachment(valueTreeState, "L", leftButton));
+    leftButton.setButtonText("∅L");
+    leftButton.setClickingTogglesState(true);
+    addAndMakeVisible(leftButton);
+
+    rightButtonAttachment.reset(new ButtonAttachment(valueTreeState, "R", rightButton));
+    rightButton.setButtonText("∅R");
+    rightButton.setClickingTogglesState(true);
+    addAndMakeVisible(rightButton);
+
     //gainSliderAttachment.reset(new SliderAttachment(valueTreeState, "gain", gainSlider));
     widthSlider.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalVerticalDrag);
     widthSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, false, width * 2 / 3, GainArea.getHeight() / 6);
@@ -34,6 +35,11 @@ UtilityAudioProcessorEditor::UtilityAudioProcessorEditor(
     muteButton.setClickingTogglesState(true);
     addAndMakeVisible(muteButton);
 
+    dcButtonAttachment.reset(new ButtonAttachment(valueTreeState, "dc", dcButton));
+    dcButton.setButtonText("DC");
+    dcButton.setClickingTogglesState(true);
+    addAndMakeVisible(dcButton);
+
     setSize(width, height);
 }
 
@@ -41,10 +47,8 @@ UtilityAudioProcessorEditor::~UtilityAudioProcessorEditor()
 {
 }
 
-//==============================================================================
 void UtilityAudioProcessorEditor::paint(juce::Graphics &g)
 {
-    // (Our component is opaque, so we must completely fill the background with a solid colour)
     g.fillAll(getLookAndFeel().findColour(juce::ResizableWindow::backgroundColourId));
 
     g.setColour(juce::Colour::Colour(46, 52, 64));
@@ -55,8 +59,11 @@ void UtilityAudioProcessorEditor::paint(juce::Graphics &g)
 
 void UtilityAudioProcessorEditor::resized()
 {
+    leftButton.setBounds(LeftButtonArea.reduced(5));
+    rightButton.setBounds(RightButtonArea.reduced(5));
     widthSlider.setBounds(WidthArea.reduced(5));
     gainSlider.setBounds(GainArea.reduced(5));
     panSlider.setBounds(PannerArea.reduced(5));
     muteButton.setBounds(MuteButtonArea.reduced(5));
+    dcButton.setBounds(DCButtonArea.reduced(5));
 }
